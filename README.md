@@ -1,0 +1,1 @@
+# centos6-MariaDB-10.1-galera
