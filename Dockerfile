@@ -1,5 +1,5 @@
-FROM centos:latest
-MAINTAINER dayreiner
+FROM centos:6
+MAINTAINER chrispetsos@gmail.com
 
 ENV MARIADB_MAJOR=10.1
 
