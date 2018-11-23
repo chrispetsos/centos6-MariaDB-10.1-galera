@@ -1,7 +1,18 @@
 **MariaDB 10.1 Galera CentOS 6**
 ==================
 
-Taken from https://github.com/dayreiner/centos7-MariaDB-10.1-galera.
+Taken from https://github.com/dayreiner/centos7-MariaDB-10.1-galera. Kudos @dayreiner.  
+Enhanced it with an optional Galera Arbitrator and a docker-compose file to orchestrate evertything.  
+
+## To run using docker-compose
+
+~~~
+docker-compose up --scale garbd=0
+
+docker-compose up garbd
+
+docker-compose exec node_bootstrap mysql -u root -e "show status like 'wsrep_%'"
+~~~
 
 CentOS 7 MariaDB 10.1 Galera cluster installation from the official MariaDB repository. Uses rsync for state transfer. Image wil automatically run any sql scripts present in /docker-entrypoint-initdb.d as part of startup.
 
