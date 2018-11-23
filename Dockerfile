@@ -1,4 +1,4 @@
-FROM centos:6
+FROM centos:6.9
 MAINTAINER chrispetsos@gmail.com
 
 ENV MARIADB_MAJOR=10.1
