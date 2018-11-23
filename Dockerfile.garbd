@@ -1,0 +1,18 @@
+FROM centos:6.9
+MAINTAINER chrispetsos@gmail.com
+
+ENV MARIADB_MAJOR=10.1
+
+# MariaDB Repo
+COPY config/MariaDB.repo /etc/yum.repos.d/MariaDB.repo
+
+# Install required packages and MariaDB Vendor Repo
+RUN yum -y install epel-release && \
+    rpm --import https://yum.mariadb.org/RPM-GPG-KEY-MariaDB && \
+    yum -y install MariaDB-server MariaDB-client galera boost-devel rsync perl-DBI && yum clean all
+
+# RUN rm -rf /var/lib/mysql && mkdir /var/lib/mysql
+
+# COPY config/arbtirator.config /etc/sysconfig/garb
+# RUN chmod 0444 /etc/sysconfig/garb
+# COPY scripts/docker-entrypoint.sh /docker-entrypoint.sh
