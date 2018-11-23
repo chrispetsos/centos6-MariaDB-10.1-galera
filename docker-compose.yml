@@ -1,7 +1,7 @@
-version: '2'
+version: '2.2'
 
 services:
-  node1:
+  node_bootstrap:
     build: .
     image: chrispetsos/centos6-mariadb-10.1-galera:latest
     environment:
@@ -9,28 +9,15 @@ services:
       CLUSTER: BOOTSTRAP
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
 
-  node2:
+  node_additional:
     build: .
     image: chrispetsos/centos6-mariadb-10.1-galera:latest
+    scale: 5
+    depends_on:
+      - node_bootstrap
     environment:
       CLUSTER_NAME: test_cluster
-      CLUSTER: node1
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-
-  node3:
-    build: .
-    image: chrispetsos/centos6-mariadb-10.1-galera:latest
-    environment:
-      CLUSTER_NAME: test_cluster
-      CLUSTER: node1
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-
-  node4:
-    build: .
-    image: chrispetsos/centos6-mariadb-10.1-galera:latest
-    environment:
-      CLUSTER_NAME: test_cluster
-      CLUSTER: node1
+      CLUSTER: node_bootstrap
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
 
   garbd:
@@ -38,4 +25,4 @@ services:
       context: .
       dockerfile: Dockerfile.garbd
     image: chrispetsos/centos6-mariadb-10.1-garbd:latest
-    command: garbd --group=test_cluster --address="gcomm://node1"
+    command: garbd --group=test_cluster --address="gcomm://node_bootstrap"
