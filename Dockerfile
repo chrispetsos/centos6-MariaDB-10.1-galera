@@ -16,6 +16,7 @@ RUN yum -y install epel-release && \
 RUN rm -rf /var/lib/mysql && mkdir /var/lib/mysql
 
 COPY config/server.cnf /etc/my.cnf.d/server.cnf
+RUN chmod 0444 /etc/my.cnf.d/server.cnf
 COPY scripts/docker-entrypoint.sh /docker-entrypoint.sh
 
 EXPOSE 3306
